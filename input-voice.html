@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <main>
+      <h2>JavaScript で音声認識</h2>
+      <p>
+        音声データを Google
+        のサーバに送信してテキスト化されたものが返ってきます。
+      </p>
+      <button type="button" class="start">音声認識開始</button>
+      <button type="button" class="stop">終了</button>
+      <div class="output"></div>
+    </main>
+    <script>
+      const recognition = new webkitSpeechRecognition(); // prefix 必要 SpeechRecognition
+      recognition.lang = "ja";
+      recognition.continuous = true;
+      recognition.onresult = ({ results }) => {
+        const output = document.querySelector(".output");
+        output.textContent = results[0][0].transcript;
+      };
+
+      const startButton = document.querySelector(".start");
+      startButton.addEventListener("click", () => {
+        recognition.start();
+      });
+      const stopButton = document.querySelector(".stop");
+      stopButton.addEventListener("click", () => {
+        recognition.stop();
+      });
+    </script>
+  </body>
+</html>

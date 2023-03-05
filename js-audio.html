@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <main>
+      <h2>JavaScript でテキストを読み上げるパターン</h2>
+      <p>
+        VOICEVOX
+        を使わなくてもテキストを読み上げることができます。ただしイントネーションや声色は機械的な印象です。ピッチなどを細かくチューニングすることもできます。
+      </p>
+      <input type="text" name="talk" />
+      <button type="button" class="send">読み上げる</button>
+      <div class="output"></div>
+    </main>
+    <script>
+      const sendButton = document.querySelector(".send");
+      sendButton.addEventListener("click", async () => {
+        const text = document.querySelector("[name=talk]");
+        await createAudio(text.value);
+      });
+
+      function createAudio(text) {
+        const uttr = new SpeechSynthesisUtterance();
+        uttr.text = text;
+        window.speechSynthesis.speak(uttr);
+      }
+    </script>
+  </body>
+</html>
